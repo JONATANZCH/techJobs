@@ -368,6 +368,7 @@ trix-toolbar .trix-button--icon-strike {
 }
 .lista-conocimientos  li.activo {
     background-color: #00C897;
+    color: #100E17;
 }
 .lista-conocimientos  li:hover {
     cursor: pointer;
