@@ -42,6 +42,7 @@ const vacantesSchema = new mongoose.Schema({
         cv: String
     }]
 })
+// Middleware para crear la url
 vacantesSchema.pre('save', function(next){
     //crear la url
     const url = slug(this.titulo);
