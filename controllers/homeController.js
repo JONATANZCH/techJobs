@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
-const Vacante = mongoose.model('Vacante');
+const mongoose = require("mongoose");
+const Vacante = mongoose.model("Vacante");
 
 exports.mostrarTrabajos = async (req, res, next) => {
+  const vacantes = await Vacante.find({}).lean();
 
-    const vacantes = await Vacante.find();
-    if (!vacantes) return next();
+  if (!vacantes) return next();
 
-    res.render('home', {
-        nombrePagina: 'techJobs',
-        tagline: 'Encuentra y Publica Trabajos para Desarrolladores Web',
-        barra: true,
-        boton: true,
-        vacantes
-    });
-}
+  res.render("home", {
+    nombrePagina: "techJobs",
+    tagline: "Encuentra y Pública Trabajos para Desarrolladores Web",
+    barra: true,
+    boton: true,
+    vacantes,
+  });
+};
