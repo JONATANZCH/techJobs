@@ -70,15 +70,18 @@ exports.formularioEditarPerfil = (req, res) => {
 // Guardar cambios editar perfil
 exports.editarPerfil = async (req, res) => {
   const usuario = await Usuarios.findById(req.user._id).exec();
-  console.log(req.body.nombre)
-  usuario.nombre = req.body.nombre;
-  usuario.email = req.body.email;
-  if(req.body.password) {
-      usuario.password = req.body.password
+  
+  if (!req.body.nombre || req.body.nombre.trim() === '') {
+    // Manejar el caso en que el campo nombre está vacío
+    req.flash('error', 'El campo nombre es requerido.');
+    return res.redirect('/administracion');
   }
 
-  if(req.file) {
-      usuario.imagen = req.file.filename;
+  usuario.nombre = req.body.nombre;
+  usuario.email = req.body.email;
+  
+  if (req.body.password) {
+    usuario.password = req.body.password;
   }
 
   await usuario.save();
