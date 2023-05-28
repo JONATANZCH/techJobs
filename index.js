@@ -7,7 +7,7 @@ const router = require("./routes");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const bodyParser = require("body-parser");
+
 const expressValidator = require("express-validator");
 const flash = require("connect-flash");
 const passport = require("./config/passport");
@@ -17,8 +17,8 @@ require("dotenv").config({ path: "variables.env" });
 const app = express();
 
 // Habilitar body parser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Habilitar express validator
 app.use(expressValidator());
@@ -29,6 +29,9 @@ app.engine(
   exphbs.engine({
     defaultLayout: "layout",
     helpers: require("./helpers/handlebars"),
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true, // Habilitar acceso a propiedades no propias
+    }
   })
 );
 app.set("view engine", "handlebars");
@@ -56,7 +59,6 @@ app.use(passport.session());
 app.use(flash());
 
 // Crear nuestro middleware
-
 app.use((req, res, next) => {
   res.locals.mensajes = req.flash();
   next();

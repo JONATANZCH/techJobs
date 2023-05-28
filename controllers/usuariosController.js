@@ -63,14 +63,14 @@ exports.formularioIniciarSesion = (req, res) => {
 exports.formularioEditarPerfil = (req, res) => {
   res.render("editar-perfil", {
     nombrePagina: "Edita tu perfil en techJobs",
-    usuario: req.user.toObject()
+    usuario: req.user,
   })
 };
 
 // Guardar cambios editar perfil
 exports.editarPerfil = async (req, res) => {
-  const usuario = await Usuarios.findById(req.user._id);
-
+  const usuario = await Usuarios.findById(req.user._id).exec();
+  console.log(req.body.nombre)
   usuario.nombre = req.body.nombre;
   usuario.email = req.body.email;
   if(req.body.password) {
@@ -84,7 +84,6 @@ exports.editarPerfil = async (req, res) => {
   await usuario.save();
 
   req.flash('correcto', 'Cambios Guardados Correctamente');
-  //redirect
+  // redirect
   res.redirect('/administracion');
 }
-
