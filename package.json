@@ -29,7 +29,7 @@
     "passport-local": "^1.0.0",
     "shortid": "^2.2.16",
     "slug": "^8.2.2",
-    "trix": "^2.0.4"
+    "trix": "^2.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
